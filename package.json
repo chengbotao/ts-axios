@@ -12,7 +12,7 @@
   "author": "chengbotao <t221007s@163.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:chengbotao/ts-axios.git"
   },
   "license": "MIT",
   "engines": {
