@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 21:13:32
+ * @LastEditTime: 2020-06-22 23:07:57
  */
 
 const express = require("express");
@@ -61,6 +61,16 @@ router.post("/request_body/buffer", (req, res) => {
     let buf = Buffer.concat(msg);
     res.json(buf.toJSON())
   })
+})
+// headers
+router.post("/headers/post", (req, res) => {
+  res.json(req.body)
+})
+router.post("/headers/contentType", (req, res) => {
+  res.json(req.body)
+})
+router.post("/headers/searchParams", (req, res) => {
+  res.json(req.body)
 })
 
 app.use(router);
