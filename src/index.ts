@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 22:28:29
+ * @LastEditTime: 2020-06-22 23:54:50
  */
 
 import { AxiosRequestConfig } from './types/index'
@@ -35,13 +35,13 @@ function transformURL(config: AxiosRequestConfig): string {
 // 处理 config.data
 function transformRequestData(config: AxiosRequestConfig): any {
   const { data } = config
-  return transformRequest(config.data)
+  return transformRequest(data)
 }
 
 // 处理 headers
 function transformHeaders(config: AxiosRequestConfig): any {
   const { headers = {}, data } = config
-  processHeaders(headers, data)
+  return processHeaders(headers, data)
 }
 
 export default axios
