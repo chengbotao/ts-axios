@@ -4,10 +4,10 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 11:25:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 12:56:15
+ * @LastEditTime: 2020-06-22 21:01:08
  */
 
-import { isDate, isObject } from './utils'
+import { isDate, isPlainObject } from './utils'
 
 // encode 编码, 并过滤一些特殊字符
 function encode(val: string): string {
@@ -50,7 +50,7 @@ export function buildURL(url: string, params?: any): string {
     values.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
 
