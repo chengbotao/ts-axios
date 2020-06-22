@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 13:30:13
+ * @LastEditTime: 2020-06-22 21:13:32
  */
 
 const express = require("express");
@@ -46,6 +46,22 @@ router.get("/simple/get", (req, res) => {
 router.get("/base_get_url/get", (req, res) => {
   res.json(req.query)
 });
+// request_body
+router.post("/request_body/post", (req, res) => {
+  res.json(req.body)
+})
+router.post("/request_body/buffer", (req, res) => {
+  let msg = [];
+  req.on("data", (chunk) => {
+    if (chunk) {
+      msg.push(chunk);
+    }
+  })
+  req.on("end", () => {
+    let buf = Buffer.concat(msg);
+    res.json(buf.toJSON())
+  })
+})
 
 app.use(router);
 
