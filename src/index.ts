@@ -4,13 +4,14 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 21:05:12
+ * @LastEditTime: 2020-06-22 22:28:29
  */
 
 import { AxiosRequestConfig } from './types/index'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
 import { transformRequest } from './helpers/data'
+import { processHeaders } from './helpers/headers'
 
 function axios(config: AxiosRequestConfig): void {
   // TODO
@@ -21,6 +22,7 @@ function axios(config: AxiosRequestConfig): void {
 // 处理 config
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
+  config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
 }
 
@@ -34,6 +36,12 @@ function transformURL(config: AxiosRequestConfig): string {
 function transformRequestData(config: AxiosRequestConfig): any {
   const { data } = config
   return transformRequest(config.data)
+}
+
+// 处理 headers
+function transformHeaders(config: AxiosRequestConfig): any {
+  const { headers = {}, data } = config
+  processHeaders(headers, data)
 }
 
 export default axios

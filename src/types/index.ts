@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 11:23:23
+ * @LastEditTime: 2020-06-22 22:23:38
  */
 
 // Types of methods
@@ -30,4 +30,5 @@ export interface AxiosRequestConfig {
   method?: Method
   data?: any
   params?: any
+  headers?: any
 }
