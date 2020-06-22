@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 07:18:47
+ * @LastEditTime: 2020-06-22 13:30:13
  */
 
 const express = require("express");
@@ -41,6 +41,10 @@ router.get("/simple/get", (req, res) => {
   res.json({
     msg: "Hello World!"
   })
+});
+// base_get_url
+router.get("/base_get_url/get", (req, res) => {
+  res.json(req.query)
 });
 
 app.use(router);
