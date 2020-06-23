@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 22:23:38
+ * @LastEditTime: 2020-06-23 07:57:06
  */
 
 // Types of methods
@@ -31,4 +31,18 @@ export interface AxiosRequestConfig {
   data?: any
   params?: any
   headers?: any
+  responseType?: XMLHttpRequestResponseType
 }
+
+// Response configuration for axios
+export interface AxiosResponse {
+  data: any
+  status: number
+  statusText: string
+  headers: any
+  config: AxiosRequestConfig
+  request: any
+}
+
+// Promise
+export interface AxiosPromise extends Promise<AxiosResponse> {}
