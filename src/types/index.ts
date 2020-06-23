@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 07:57:06
+ * @LastEditTime: 2020-06-23 21:51:47
  */
 
 // Types of methods
@@ -32,6 +32,7 @@ export interface AxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 // Response configuration for axios

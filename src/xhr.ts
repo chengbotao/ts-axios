@@ -1,10 +1,11 @@
+import { resolve } from 'rollup-plugin-node-resolve'
 /*
  * @Description: XMLHttpRequest
  * @version:
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 08:37:11
+ * @LastEditTime: 2020-06-23 22:36:53
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
@@ -13,8 +14,8 @@ import { parseHeaders } from './helpers/headers'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
-  return new Promise(resolve => {
-    const { data = null, url, method = 'get', headers, responseType } = config
+  return new Promise((resolve, reject) => {
+    const { data = null, url, method = 'get', headers, responseType, timeout } = config
 
     const XHR = new XMLHttpRequest()
 
@@ -22,10 +23,18 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       XHR.responseType = responseType
     }
 
+    if (timeout) {
+      XHR.timeout = timeout
+    }
+
     XHR.open(method.toUpperCase(), url, true)
 
     XHR.onreadystatechange = function handleLoad() {
       if (XHR.readyState !== 4) {
+        return
+      }
+
+      if (XHR.status === 0) {
         return
       }
 
@@ -40,7 +49,15 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         request: XHR
       }
 
-      resolve(response)
+      handleResponse(response)
+    }
+
+    XHR.onerror = function handleError() {
+      reject(new Error('Network Error'))
+    }
+
+    XHR.ontimeout = function handleTimeout() {
+      reject(new Error(`Timeout of ${timeout} ms exceeded`))
     }
 
     // XHR 发送 headers
@@ -53,5 +70,12 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     })
 
     XHR.send(data)
+    function handleResponse(response: AxiosResponse): void {
+      if (response.status >= 200 && response.status < 300) {
+        resolve(response)
+      } else {
+        reject(new Error(`Request failed with status code ${response.status}`))
+      }
+    }
   })
 }
