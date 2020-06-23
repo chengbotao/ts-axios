@@ -4,10 +4,12 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 08:19:28
+ * @LastEditTime: 2020-06-23 08:37:11
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
+
+import { parseHeaders } from './helpers/headers'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
@@ -27,7 +29,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         return
       }
 
-      const responseHeaders = XHR.getAllResponseHeaders()
+      const responseHeaders = parseHeaders(XHR.getAllResponseHeaders())
       const responseData = responseType !== 'text' ? XHR.response : XHR.responseText
       const response: AxiosResponse = {
         data: responseData,
