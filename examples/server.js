@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 08:20:19
+ * @LastEditTime: 2020-06-23 22:08:49
  */
 
 const express = require("express");
@@ -75,6 +75,24 @@ router.post("/headers/searchParams", (req, res) => {
 // response_promise
 router.post("/response_promise/post", (req, res) => {
   res.json(req.body)
+})
+// error
+router.get("/error/get", (req, res) => {
+  if (Math.random() > 0.5) {
+    res.json({
+      msg: `HELLO WORLD!!`
+    })
+  }else{
+    res.status(500)
+    res.end()
+  }
+})
+router.get("/error/timeout", (req, res) => {
+  setTimeout(()=>{
+    res.json({
+      msg: `hello world!!`
+    })
+  }, 3000)
 })
 
 app.use(router);
