@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 23:07:57
+ * @LastEditTime: 2020-06-23 08:20:19
  */
 
 const express = require("express");
@@ -70,6 +70,10 @@ router.post("/headers/contentType", (req, res) => {
   res.json(req.body)
 })
 router.post("/headers/searchParams", (req, res) => {
+  res.json(req.body)
+})
+// response_promise
+router.post("/response_promise/post", (req, res) => {
   res.json(req.body)
 })
 
