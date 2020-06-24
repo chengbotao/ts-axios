@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 22:08:49
+ * @LastEditTime: 2020-06-24 23:04:00
  */
 
 const express = require("express");
@@ -82,17 +82,40 @@ router.get("/error/get", (req, res) => {
     res.json({
       msg: `HELLO WORLD!!`
     })
-  }else{
+  } else {
     res.status(500)
     res.end()
   }
 })
 router.get("/error/timeout", (req, res) => {
-  setTimeout(()=>{
+  setTimeout(() => {
     res.json({
       msg: `hello world!!`
     })
   }, 3000)
+})
+
+// extend
+router.get("/extend/get", (req, res) => {
+  res.end()
+})
+router.delete("/extend/delete", (req, res) => {
+  res.end()
+})
+router.head("/extend/head", (req, res) => {
+  res.end()
+})
+router.options("/extend/options", (req, res) => {
+  res.end()
+})
+router.post("/extend/post", (req, res) => {
+  res.json(req.body)
+})
+router.put("/extend/put", (req, res) => {
+  res.json(req.body)
+})
+router.patch("/extend/patch", (req, res) => {
+  res.json(req.body)
 })
 
 app.use(router);
