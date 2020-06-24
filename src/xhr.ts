@@ -1,16 +1,17 @@
-import { resolve } from 'rollup-plugin-node-resolve'
 /*
  * @Description: XMLHttpRequest
  * @version:
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 22:36:53
+ * @LastEditTime: 2020-06-24 08:33:24
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
 
 import { parseHeaders } from './helpers/headers'
+
+import { createError } from './helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
@@ -53,11 +54,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     XHR.onerror = function handleError() {
-      reject(new Error('Network Error'))
+      reject(createError('Network Error', config, null, XHR))
     }
 
     XHR.ontimeout = function handleTimeout() {
-      reject(new Error(`Timeout of ${timeout} ms exceeded`))
+      reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', XHR))
     }
 
     // XHR 发送 headers
@@ -74,7 +75,15 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
       } else {
-        reject(new Error(`Request failed with status code ${response.status}`))
+        reject(
+          createError(
+            `Request failed with status code ${response.status}`,
+            config,
+            null,
+            XHR,
+            response
+          )
+        )
       }
     }
   })

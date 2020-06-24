@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 21:51:47
+ * @LastEditTime: 2020-06-24 07:56:19
  */
 
 // Types of methods
@@ -47,3 +47,12 @@ export interface AxiosResponse {
 
 // Promise
 export interface AxiosPromise extends Promise<AxiosResponse> {}
+
+// Error
+export interface AxiosError extends Error {
+  isAxiosError: boolean
+  config: AxiosRequestConfig
+  code?: string | null
+  request?: any
+  response?: AxiosResponse
+}

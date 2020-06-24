@@ -4,10 +4,10 @@
  * @Author: Chengbotao
  * @Date: 2020-06-23 22:02:11
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 22:42:47
+ * @LastEditTime: 2020-06-24 08:28:56
  */
 
-import axios from "../../src/index";
+import axios, { AxiosError } from "../../src/index";
 
 // tslint:disable-next-line: no-floating-promises
 axios({
@@ -20,12 +20,12 @@ axios({
   timeout: 2000
 }).then(res => {
   console.log(res)
-}).catch(e=>{
+}).catch((e: AxiosError) => {
   console.log(e.message)
 })
 
 // tslint:disable-next-line: no-floating-promises
-setTimeout(()=>{
+setTimeout(() => {
   axios({
     method: "get",
     url: "/error/get",
@@ -35,8 +35,8 @@ setTimeout(()=>{
     }
   }).then(res => {
     console.log(res)
-  }).catch(e=>{
-    console.log(e)
+  }).catch((e: AxiosError) => {
+    console.log(e.message)
   })
 }, 50000)
 
@@ -50,8 +50,12 @@ axios({
   }
 }).then(res => {
   console.log(res)
-}).catch(e=>{
-  console.log(e)
+}).catch((e: AxiosError) => {
+  console.log(e.code)
+  console.log(e.config)
+  console.log(e.message)
+  console.log(e.request)
+  console.log(e.response)
 })
 
 // tslint:disable-next-line: no-floating-promises
@@ -64,6 +68,6 @@ axios({
   }
 }).then(res => {
   console.log(res)
-}).catch(e=>{
+}).catch((e: AxiosError) => {
   console.log(e)
 })
