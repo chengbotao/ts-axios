@@ -4,14 +4,14 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-24 08:33:24
+ * @LastEditTime: 2020-06-24 22:25:43
  */
 
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
 
-import { parseHeaders } from './helpers/headers'
+import { parseHeaders } from '../helpers/headers'
 
-import { createError } from './helpers/error'
+import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
@@ -28,7 +28,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       XHR.timeout = timeout
     }
 
-    XHR.open(method.toUpperCase(), url, true)
+    XHR.open(method.toUpperCase(), url!, true)
 
     XHR.onreadystatechange = function handleLoad() {
       if (XHR.readyState !== 4) {
