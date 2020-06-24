@@ -4,20 +4,19 @@
  * @Author: Chengbotao
  * @Date: 2020-06-24 22:53:46
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-24 22:58:32
+ * @LastEditTime: 2020-06-24 23:28:06
  */
 
 import axios from "../../src/index";
 
-axios({
-  url: "/extend/post",
+axios("/extend/post",{
   method: "post",
   data: {
     msg: "hello"
   }
 })
 
-axios.request({
+axios.request( {
   url: "/extend/post",
   method: "post",
   data: {
