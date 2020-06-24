@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-24 22:14:32
+ * @LastEditTime: 2020-06-24 23:19:35
  */
 
 // Types of methods
@@ -72,4 +72,5 @@ export interface Axios {
 // AxiosInstance
 export interface AxiosInstance extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
+  (url: string, config: AxiosRequestConfig): AxiosPromise
 }
