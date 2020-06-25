@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 08:24:04
+ * @LastEditTime: 2020-06-25 09:22:55
  */
 
 // Types of methods
@@ -73,4 +73,16 @@ export interface Axios {
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   <T = any>(url: string, config: AxiosRequestConfig): AxiosPromise<T>
+}
+
+// AxiosInterceptorManager 拦截器接口
+export interface AxiosInterceptorManager<T> {
+  use(resolved: ResolvedFn<T>, rejected: RejectedFn): number
+  eject(id: number): void
+}
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>
+}
+export interface RejectedFn {
+  (error: any): any
 }
