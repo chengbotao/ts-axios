@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 12:20:57
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-24 22:45:07
+ * @LastEditTime: 2020-06-25 16:44:01
  */
 
 const toString = Object.prototype.toString
@@ -31,4 +31,26 @@ export function extend<T, U>(to: T, from: U): T & U {
   }
 
   return to as T & U
+}
+
+// 对象深拷贝
+export function deepMerge(...objects: any[]): any {
+  const result = Object.create(null)
+  objects.forEach(obj => {
+    if (obj) {
+      Object.keys(obj).forEach(key => {
+        const val = obj[key]
+        if (isPlainObject(val)) {
+          if (isPlainObject(result[key])) {
+            result[key] = deepMerge(result[key], val)
+          } else {
+            result[key] = deepMerge(val)
+          }
+        } else {
+          result[key] = val
+        }
+      })
+    }
+  })
+  return result
 }

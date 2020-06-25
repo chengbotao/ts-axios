@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 10:37:16
+ * @LastEditTime: 2020-06-25 16:27:27
  */
 
 // Types of methods
@@ -33,6 +33,8 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  // 索引签名
+  [propName: string]: any
 }
 
 // Response configuration for axios
@@ -59,6 +61,7 @@ export interface AxiosError extends Error {
 
 // Axios
 export interface Axios {
+  defaults: AxiosRequestConfig
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>

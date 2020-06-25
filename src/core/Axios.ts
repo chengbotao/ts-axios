@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-24 22:15:56
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 09:55:18
+ * @LastEditTime: 2020-06-25 16:47:39
  */
 
 import {
@@ -17,6 +17,7 @@ import {
 } from './../types/index'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
+import mergeConfig from './mergeConfig'
 
 interface Interceptors {
   request: InterceptorManager<AxiosRequestConfig>
@@ -28,9 +29,11 @@ interface PromiseChain<T> {
   rejected?: RejectedFn
 }
 export default class Axios {
+  defaults: AxiosRequestConfig
   interceptors: Interceptors
 
-  constructor() {
+  constructor(initConfig: AxiosRequestConfig) {
+    this.defaults = initConfig
     this.interceptors = {
       request: new InterceptorManager<AxiosRequestConfig>(),
       response: new InterceptorManager<AxiosResponse>()
@@ -47,6 +50,9 @@ export default class Axios {
     } else {
       config = url
     }
+
+    // 合并配置
+    config = mergeConfig(this.defaults, config)
 
     const chain: PromiseChain<any>[] = [
       {

@@ -4,10 +4,11 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 22:13:19
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-23 08:34:13
+ * @LastEditTime: 2020-06-25 17:05:06
  */
 
-import { isPlainObject } from './utils'
+import { isPlainObject, deepMerge } from './utils'
+import { Method } from '../types'
 
 function normalizeHeaders(headers: any, normalizeName: string): void {
   if (!headers) {
@@ -54,4 +55,18 @@ export function parseHeaders(headers: string): any {
   })
 
   return parsed
+}
+
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) {
+    return headers
+  }
+  headers = deepMerge(headers.common, headers[method], headers)
+
+  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+  methodsToDelete.forEach(method => {
+    delete headers[method]
+  })
+
+  return headers
 }
