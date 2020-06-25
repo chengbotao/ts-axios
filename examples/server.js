@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 10:43:55
+ * @LastEditTime: 2020-06-25 18:07:52
  */
 
 const express = require("express");
@@ -121,6 +121,10 @@ router.patch("/extend/patch", (req, res) => {
 // interceptors
 router.get("/interceptor/get", (req, res) => {
   res.end()
+})
+// config
+router.post("/config/post", (req, res) => {
+  res.json(req.body)
 })
 
 app.use(router);
