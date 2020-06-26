@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 09:26:22
+ * @LastEditTime: 2020-06-26 10:02:31
  */
 
 // Types of methods
@@ -82,6 +82,11 @@ export interface Axios {
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   <T = any>(url: string, config: AxiosRequestConfig): AxiosPromise<T>
+}
+
+// AxiosStatic 静态方法
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
 }
 
 // AxiosInterceptorManager 拦截器接口
