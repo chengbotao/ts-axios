@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 12:20:57
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 16:47:47
+ * @LastEditTime: 2020-06-26 18:00:08
  */
 
 const toString = Object.prototype.toString
@@ -27,6 +27,11 @@ export function isPlainObject(val: any): val is Object {
 // 是否是 FormData
 export function isFormData(val: any): val is FormData {
   return typeof val !== 'undefined' && val instanceof FormData
+}
+
+// 是否是 URLSearchParams
+export function isURLSearchParams(val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
 
 // 拷贝

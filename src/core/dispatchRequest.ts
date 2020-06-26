@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:15:34
+ * @LastEditTime: 2020-06-26 18:03:28
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -31,8 +31,8 @@ function processConfig(config: AxiosRequestConfig): void {
 
 // 处理 config.url
 function transformURL(config: AxiosRequestConfig): string {
-  const { url, params } = config
-  return buildURL(url!, params)
+  const { url, params, paramsSerializer } = config
+  return buildURL(url!, params, paramsSerializer)
 }
 
 // 处理 response data

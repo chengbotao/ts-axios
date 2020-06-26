@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 11:25:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 12:25:32
+ * @LastEditTime: 2020-06-26 18:01:58
  */
 
 import { isDate, isPlainObject } from './utils'
@@ -26,44 +26,58 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
-export function buildURL(url: string, params?: any): string {
+export function buildURL(
+  url: string,
+  params?: any,
+  paramsSerializer?: (params: any) => string
+): string {
   // 如果没有 params 参数
   if (!params) {
     return url
   }
 
-  // parts 字符串数组保存所有参数的键值对,如:["userName=chengbotao","passWord=123456",...]
-  const parts: string[] = []
+  let serializedParams
 
-  // 拼接params
-  Object.keys(params).forEach(key => {
-    const val = params[key]
-    // 如果 val 为空或者undefined
-    if (val === null || typeof val === 'undefined') {
-      return
-    }
+  // 自定义参数序列化
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params)
+  } else if (isURLSameOrigin(params)) {
+    serializedParams = params.toString()
+  } else {
+    // parts 字符串数组保存所有参数的键值对,如:["userName=chengbotao","passWord=123456",...]
+    const parts: string[] = []
 
-    // 统一格式
-    let values = []
-    if (Array.isArray(val)) {
-      values = val
-      key += '[]'
-    } else {
-      values = [val]
-    }
-
-    values.forEach(val => {
-      if (isDate(val)) {
-        val = val.toISOString()
-      } else if (isPlainObject(val)) {
-        val = JSON.stringify(val)
+    // 拼接params
+    Object.keys(params).forEach(key => {
+      const val = params[key]
+      // 如果 val 为空或者undefined
+      if (val === null || typeof val === 'undefined') {
+        return
       }
 
-      parts.push(`${encode(key)}=${encode(val)}`)
-    })
-  })
+      // 统一格式
+      let values = []
+      if (Array.isArray(val)) {
+        values = val
+        key += '[]'
+      } else {
+        values = [val]
+      }
 
-  let serializedParams = parts.join('&')
+      values.forEach(val => {
+        if (isDate(val)) {
+          val = val.toISOString()
+        } else if (isPlainObject(val)) {
+          val = JSON.stringify(val)
+        }
+
+        parts.push(`${encode(key)}=${encode(val)}`)
+      })
+    })
+
+    serializedParams = parts.join('&')
+  }
+
   if (serializedParams) {
     // 去掉 url 的 hash 字符
     let markIndex = url.indexOf('#')
