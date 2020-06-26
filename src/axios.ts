@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:20:11
+ * @LastEditTime: 2020-06-26 19:16:59
  */
 
 import { AxiosStatic, AxiosRequestConfig } from './types/index'
@@ -31,5 +31,16 @@ axios.create = function create(config) {
 axios.CancelToken = CancelToken
 axios.Cancel = Cancel
 axios.isCancel = isCancel
+
+axios.all = function all(promises) {
+  return Promise.all(promises)
+}
+axios.spread = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr)
+  }
+}
+
+axios.Axios = Axios
 
 export default axios

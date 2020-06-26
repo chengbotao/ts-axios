@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 18:10:43
+ * @LastEditTime: 2020-06-26 19:05:01
  */
 
 // Types of methods
@@ -86,6 +86,8 @@ export interface Axios {
   post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+
+  getUri(config?: AxiosRequestConfig): string
 }
 
 // AxiosInstance
@@ -94,12 +96,22 @@ export interface AxiosInstance extends Axios {
   <T = any>(url: string, config: AxiosRequestConfig): AxiosPromise<T>
 }
 
+// Axios 原型方法
+export interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
+}
+
 // AxiosStatic 静态方法
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+
+  all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+
+  Axios: AxiosClassStatic
 }
 
 // AxiosInterceptorManager 拦截器接口

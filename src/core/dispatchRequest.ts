@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 18:23:56
+ * @LastEditTime: 2020-06-26 19:15:32
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -30,7 +30,7 @@ function processConfig(config: AxiosRequestConfig): void {
 }
 
 // 处理 config.url
-function transformURL(config: AxiosRequestConfig): string {
+export function transformURL(config: AxiosRequestConfig): string {
   let { url, params, paramsSerializer, baseURL } = config
   if (baseURL && !isAbsoluteURL(url!)) {
     url = combineURL(baseURL, url)

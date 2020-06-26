@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-24 22:15:56
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 16:47:39
+ * @LastEditTime: 2020-06-26 19:15:50
  */
 
 import {
@@ -15,7 +15,7 @@ import {
   ResolvedFn,
   RejectedFn
 } from './../types/index'
-import dispatchRequest from './dispatchRequest'
+import dispatchRequest, { transformURL } from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
 import mergeConfig from './mergeConfig'
 
@@ -79,6 +79,12 @@ export default class Axios {
 
     return promise
   }
+
+  getUri(config?: AxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformURL(config)
+  }
+
   _requestMethodWithoutData(
     method: Method,
     url: string,
