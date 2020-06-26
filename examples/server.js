@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 18:07:52
+ * @LastEditTime: 2020-06-26 11:32:26
  */
 
 const express = require("express");
@@ -125,6 +125,17 @@ router.get("/interceptor/get", (req, res) => {
 // config
 router.post("/config/post", (req, res) => {
   res.json(req.body)
+})
+// cancel
+router.get("/cancel/get", (req, res) => {
+  setTimeout(()=>{
+    res.json("cancel get")
+  },1000)
+})
+router.post("/cancel/post", (req, res) => {
+  setTimeout(()=>{
+    res.json(req.body)
+  },1000)
 })
 
 app.use(router);

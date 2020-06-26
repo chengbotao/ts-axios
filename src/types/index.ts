@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:11:59
+ * @LastEditTime: 2020-06-26 11:27:56
  */
 
 // Types of methods
@@ -90,7 +90,7 @@ export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
-  isCancel: (value: any) => void
+  isCancel: (value: any) => boolean
 }
 
 // AxiosInterceptorManager 拦截器接口
