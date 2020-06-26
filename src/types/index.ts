@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 17:51:16
+ * @LastEditTime: 2020-06-26 18:10:43
  */
 
 // Types of methods
@@ -44,6 +44,7 @@ export interface AxiosRequestConfig {
   auth?: AxiosBasicCredentials
   validateStatus?: (status: number) => boolean
   paramsSerializer?: (params: any) => string
+  baseURL?: string
   // 索引签名
   [propName: string]: any
 }

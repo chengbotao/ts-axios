@@ -4,12 +4,12 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 18:03:28
+ * @LastEditTime: 2020-06-26 18:23:56
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
 import xhr from './xhr'
-import { buildURL } from '../helpers/url'
+import { buildURL, isAbsoluteURL, combineURL } from '../helpers/url'
 import { flattenHeaders } from '../helpers/headers'
 import transform from './transform'
 
@@ -31,7 +31,10 @@ function processConfig(config: AxiosRequestConfig): void {
 
 // 处理 config.url
 function transformURL(config: AxiosRequestConfig): string {
-  const { url, params, paramsSerializer } = config
+  let { url, params, paramsSerializer, baseURL } = config
+  if (baseURL && !isAbsoluteURL(url!)) {
+    url = combineURL(baseURL, url)
+  }
   return buildURL(url!, params, paramsSerializer)
 }
 

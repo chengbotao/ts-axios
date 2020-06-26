@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 11:25:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 18:01:58
+ * @LastEditTime: 2020-06-26 18:20:13
  */
 
 import { isDate, isPlainObject } from './utils'
@@ -113,4 +113,14 @@ function resolveURL(url: string): URLOrigin {
     protocol,
     host
   }
+}
+
+// URL 是否是绝对地址
+export function isAbsoluteURL(url: string): boolean {
+  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+// 拼接 URL
+export function combineURL(baseURL: string, relativeURL?: string): string {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
 }
