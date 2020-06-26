@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-25 13:41:49
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 12:11:36
+ * @LastEditTime: 2020-06-26 17:38:35
  */
 
 import { AxiosRequestConfig } from './types/index'
@@ -31,7 +31,10 @@ const defaults: AxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  }
 }
 
 const methodsNoData = ['delete', 'get', 'head', 'options']

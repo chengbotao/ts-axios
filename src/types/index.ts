@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 17:17:15
+ * @LastEditTime: 2020-06-26 17:35:53
  */
 
 // Types of methods
@@ -42,6 +42,7 @@ export interface AxiosRequestConfig {
   onDownloadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
   auth?: AxiosBasicCredentials
+  validateStatus?: (status: number) => boolean
   // 索引签名
   [propName: string]: any
 }
