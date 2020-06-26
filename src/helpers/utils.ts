@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 12:20:57
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 16:44:01
+ * @LastEditTime: 2020-06-26 16:47:47
  */
 
 const toString = Object.prototype.toString
@@ -22,6 +22,11 @@ export function isDate(val: any): val is Date {
 // 普通对象
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
+}
+
+// 是否是 FormData
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
 }
 
 // 拷贝
