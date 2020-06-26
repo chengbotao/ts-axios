@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 22:13:19
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 17:05:06
+ * @LastEditTime: 2020-06-26 09:17:49
  */
 
 import { isPlainObject, deepMerge } from './utils'
@@ -27,7 +27,7 @@ export function processHeaders(headers: any, data: any): any {
   normalizeHeaders(headers, 'Content-Type')
   if (isPlainObject(data)) {
     if (headers && !headers['Content-Type']) {
-      headers['Content-type'] = 'application/json;charset=utf-8'
+      headers['Content-Type'] = 'application/json;charset=utf-8'
     }
   }
 
