@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-25 14:08:13
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 16:44:16
+ * @LastEditTime: 2020-06-26 17:18:14
  */
 
 import { AxiosRequestConfig } from './../types/index'
@@ -31,7 +31,7 @@ function deepMergeStart(val1: any, val2: any): any {
     return val1
   }
 }
-const startKeysDeepMerge = ['headers']
+const startKeysDeepMerge = ['headers', 'auth']
 startKeysDeepMerge.forEach(key => {
   starts[key] = deepMergeStart
 })

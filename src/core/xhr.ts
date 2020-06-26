@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 17:00:57
+ * @LastEditTime: 2020-06-26 17:24:11
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -31,7 +31,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       xsrfCookieName,
       xsrfHeaderName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      auth
     } = config
 
     const XHR = new XMLHttpRequest()
@@ -112,6 +113,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         if (xsrfVal && xsrfHeaderName) {
           headers[xsrfHeaderName] = xsrfVal
         }
+      }
+
+      // auth
+      if (auth) {
+        headers['Authorization'] = 'Basic ' + btoa(auth.username + ':' + auth.password)
       }
 
       // XHR 发送 headers
