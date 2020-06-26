@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-24 22:25:43
+ * @LastEditTime: 2020-06-26 11:19:32
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -16,7 +16,7 @@ import { createError } from '../helpers/error'
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
   return new Promise((resolve, reject) => {
-    const { data = null, url, method = 'get', headers, responseType, timeout } = config
+    const { data = null, url, method = 'get', headers, responseType, timeout, cancelToken } = config
 
     const XHR = new XMLHttpRequest()
 
@@ -69,6 +69,15 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         XHR.setRequestHeader(name, headers[name])
       }
     })
+
+    // 取消请求
+    if (cancelToken) {
+      // tslint:disable-next-line: no-floating-promises
+      cancelToken.promise.then(reason => {
+        XHR.abort()
+        reject(reason)
+      })
+    }
 
     XHR.send(data)
     function handleResponse(response: AxiosResponse): void {
