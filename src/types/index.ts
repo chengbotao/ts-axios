@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 16:27:27
+ * @LastEditTime: 2020-06-26 09:26:22
  */
 
 // Types of methods
@@ -33,6 +33,8 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
   // 索引签名
   [propName: string]: any
 }
@@ -92,4 +94,8 @@ export interface ResolvedFn<T> {
 }
 export interface RejectedFn {
   (error: any): any
+}
+
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
 }

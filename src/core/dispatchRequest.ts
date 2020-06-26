@@ -4,14 +4,14 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:49:10
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-25 17:06:55
+ * @LastEditTime: 2020-06-26 09:41:21
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
 import xhr from './xhr'
 import { buildURL } from '../helpers/url'
-import { transformRequest, transformResponse } from '../helpers/data'
-import { processHeaders, flattenHeaders } from '../helpers/headers'
+import { flattenHeaders } from '../helpers/headers'
+import transform from './transform'
 
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   // TODO
@@ -24,8 +24,7 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 // 处理 config
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
-  config.headers = transformHeaders(config)
-  config.data = transformRequestData(config)
+  config.data = transform(config.data, config.headers, config.transformRequest)
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 
@@ -35,20 +34,8 @@ function transformURL(config: AxiosRequestConfig): string {
   return buildURL(url!, params)
 }
 
-// 处理 config.data
-function transformRequestData(config: AxiosRequestConfig): any {
-  const { data } = config
-  return transformRequest(data)
-}
-
-// 处理 headers
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
-
 // 处理 response data
 function transformResponseData(res: AxiosResponse) {
-  res.data = transformResponse(res.data)
+  res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
