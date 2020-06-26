@@ -4,10 +4,15 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 11:25:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-22 21:01:08
+ * @LastEditTime: 2020-06-26 12:25:32
  */
 
 import { isDate, isPlainObject } from './utils'
+
+interface URLOrigin {
+  protocol: string
+  host: string
+}
 
 // encode 编码, 并过滤一些特殊字符
 function encode(val: string): string {
@@ -75,4 +80,23 @@ export function buildURL(url: string, params?: any): string {
   }
 
   return url
+}
+
+// 是否为同源
+export function isURLSameOrigin(requestURL: string): boolean {
+  const parsedOrigin = resolveURL(requestURL)
+  return (
+    parsedOrigin.protocol === currentOrigin.protocol && parsedOrigin.host === currentOrigin.host
+  )
+}
+const urlParsingNode = document.createElement('a')
+// 当前页面的 URL
+const currentOrigin = resolveURL(window.location.href)
+function resolveURL(url: string): URLOrigin {
+  urlParsingNode.setAttribute('href', url)
+  const { protocol, host } = urlParsingNode
+  return {
+    protocol,
+    host
+  }
 }

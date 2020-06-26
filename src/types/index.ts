@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 05:52:52
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:57:13
+ * @LastEditTime: 2020-06-26 12:10:25
  */
 
 // Types of methods
@@ -37,6 +37,8 @@ export interface AxiosRequestConfig {
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
   withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
   // 索引签名
   [propName: string]: any
 }

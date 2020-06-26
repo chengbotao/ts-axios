@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 12:02:58
+ * @LastEditTime: 2020-06-26 12:51:01
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -12,6 +12,8 @@ import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
 import { parseHeaders } from '../helpers/headers'
 
 import { createError } from '../helpers/error'
+import { isURLSameOrigin } from '../helpers/url'
+import cookie from '../helpers/cookie'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
@@ -24,7 +26,9 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       responseType,
       timeout,
       cancelToken,
-      withCredentials
+      withCredentials,
+      xsrfCookieName,
+      xsrfHeaderName
     } = config
 
     const XHR = new XMLHttpRequest()
@@ -73,6 +77,13 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     XHR.ontimeout = function handleTimeout() {
       reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', XHR))
+    }
+
+    if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {
+      const xsrfVal = cookie.read(xsrfCookieName)
+      if (xsrfVal && xsrfHeaderName) {
+        headers[xsrfHeaderName] = xsrfVal
+      }
     }
 
     // XHR 发送 headers
