@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:19:32
+ * @LastEditTime: 2020-06-26 12:02:58
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -16,7 +16,16 @@ import { createError } from '../helpers/error'
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   // TODO
   return new Promise((resolve, reject) => {
-    const { data = null, url, method = 'get', headers, responseType, timeout, cancelToken } = config
+    const {
+      data = null,
+      url,
+      method = 'get',
+      headers,
+      responseType,
+      timeout,
+      cancelToken,
+      withCredentials
+    } = config
 
     const XHR = new XMLHttpRequest()
 
@@ -26,6 +35,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     if (timeout) {
       XHR.timeout = timeout
+    }
+
+    // 跨域是否携带 cookie
+    if (withCredentials) {
+      XHR.withCredentials = withCredentials
     }
 
     XHR.open(method.toUpperCase(), url!, true)
