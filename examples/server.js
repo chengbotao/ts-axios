@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:54:03
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 11:32:26
+ * @LastEditTime: 2020-06-26 12:42:24
  */
 
 const express = require("express");
@@ -128,14 +128,19 @@ router.post("/config/post", (req, res) => {
 })
 // cancel
 router.get("/cancel/get", (req, res) => {
-  setTimeout(()=>{
+  setTimeout(() => {
     res.json("cancel get")
-  },1000)
+  }, 1000)
 })
 router.post("/cancel/post", (req, res) => {
-  setTimeout(()=>{
+  setTimeout(() => {
     res.json(req.body)
-  },1000)
+  }, 1000)
+})
+// cookie
+router.get("/more/get", (req, res) => {
+  res.cookie("XSRF-TOKEN-D", "chengbt")
+  res.end()
 })
 
 app.use(router);
