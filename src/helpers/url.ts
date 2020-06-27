@@ -4,10 +4,10 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 11:25:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 18:20:13
+ * @LastEditTime: 2020-06-27 19:40:37
  */
 
-import { isDate, isPlainObject } from './utils'
+import { isDate, isPlainObject, isURLSearchParams } from './utils'
 
 interface URLOrigin {
   protocol: string
@@ -41,7 +41,7 @@ export function buildURL(
   // 自定义参数序列化
   if (paramsSerializer) {
     serializedParams = paramsSerializer(params)
-  } else if (isURLSameOrigin(params)) {
+  } else if (isURLSearchParams(params)) {
     serializedParams = params.toString()
   } else {
     // parts 字符串数组保存所有参数的键值对,如:["userName=chengbotao","passWord=123456",...]
@@ -117,7 +117,7 @@ function resolveURL(url: string): URLOrigin {
 
 // URL 是否是绝对地址
 export function isAbsoluteURL(url: string): boolean {
-  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
 }
 
 // 拼接 URL
