@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 22:13:19
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 09:17:49
+ * @LastEditTime: 2020-06-27 18:12:48
  */
 
 import { isPlainObject, deepMerge } from './utils'
@@ -42,14 +42,13 @@ export function parseHeaders(headers: string): any {
   }
 
   headers.split('\r\n').forEach(line => {
-    let [key, val] = line.split(':')
+    // Date 日期类型 出错修正
+    let [key, ...vals] = line.split(':')
     key = key.trim().toLowerCase()
     if (!key) {
       return
     }
-    if (val) {
-      val = val.trim()
-    }
+    const val = vals.join(':').trim()
 
     parsed[key] = val
   })
