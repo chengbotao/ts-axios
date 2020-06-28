@@ -4,7 +4,7 @@
  * @Author: Chengbotao
  * @Date: 2020-06-22 06:05:18
  * @LastEditors: Chengbotao
- * @LastEditTime: 2020-06-26 17:40:50
+ * @LastEditTime: 2020-06-28 22:14:49
  */
 
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types/index'
@@ -22,7 +22,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     const {
       data = null,
       url,
-      method = 'get',
+      method,
       headers,
       responseType,
       timeout,
@@ -38,7 +38,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     const XHR = new XMLHttpRequest()
 
-    XHR.open(method.toUpperCase(), url!, true)
+    XHR.open(method!.toUpperCase(), url!, true)
 
     configureRequest()
     addEvents()
@@ -73,7 +73,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         }
 
         const responseHeaders = parseHeaders(XHR.getAllResponseHeaders())
-        const responseData = responseType !== 'text' ? XHR.response : XHR.responseText
+        const responseData =
+          responseType && responseType !== 'text' ? XHR.response : XHR.responseText
         const response: AxiosResponse = {
           data: responseData,
           status: XHR.status,
